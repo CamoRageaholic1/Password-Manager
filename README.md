@@ -1,47 +1,61 @@
-##Password Manager - By David Osisek
+## Password Manager - Created by David Osisek
 
-import sqlite3
-import base64
-import os
-from cryptography.hazmat.backends import default_backend
-from cryptography.hazmat.primitives import hashes
-from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
-from cryptography.fernet import Fernet
-import getpass
-import hashlib
+        ____                                          __   __  ___                                 
+       / __ \____ ____________      ______  _________/ /  /  |/  /___ _____  ____ _____ ____  _____
+      / /_/ / __ `/ ___/ ___/ | /| / / __ \/ ___/ __  /  / /|_/ / __ `/ __ \/ __ `/ __ `/ _ \/ ___/
+     / ____/ /_/ (__  |__  )| |/ |/ / /_/ / /  / /_/ /  / /  / / /_/ / / / / /_/ / /_/ /  __/ /    
+    /_/    \__,_/____/____/ |__/|__/\____/_/   \__,_/  /_/  /_/\__,_/_/ /_/\__,_/\__, /\___/_/     
+                                                                            /____/            
+        ____           ______                   _____                  ____             
+       / __ )__  __   / ____/___ _____ ___  ___/__  / ___  _________  / __ \____ ___  __
+      / __  / / / /  / /   / __ `/ __ `__ \/ __ \/ / / _ \/ ___/ __ \/ / / / __ `/ / / /
+     / /_/ / /_/ /  / /___/ /_/ / / / / / / /_/ / /_/  __/ /  / /_/ / /_/ / /_/ / /_/ / 
+    /_____/\__, /   \____/\__,_/_/ /_/ /_/\____/____|___/_/   \____/_____/\__,_/\__, /  
+          /____/                                                               /____/ 
 
-def hash_master_password(password):
-    return hashlib.sha256(password.encode()).hexdigest()
+    
+    
+    import base64
+    import os
+    from cryptography.hazmat.backends import default_backend
+    from cryptography.hazmat.primitives import hashes
+    from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
+    from cryptography.fernet import Fernet
+    import getpass
+    import hashlib
 
-def verify_master_password(stored_hash, input_password):
-    input_hash = hash_master_password(input_password)
-    return input_hash == stored_hash
+    def hash_master_password(password):
+        return hashlib.sha256(password.encode()).hexdigest()
 
-def get_key(password_provided):
-    password = password_provided.encode()
-    salt = b'\x1a\xdb\xcf\x1d\x80\x91\xcc\x85\x10\x1d\x2b\x2f\x6e\xdc\x0e\x20'
-    kdf = PBKDF2HMAC(
-        algorithm=hashes.SHA256(),
-        length=32,
-        salt=salt,
-        iterations=100000,
-        backend=default_backend()
-    )
-    return base64.urlsafe_b64encode(kdf.derive(password))
+    def verify_master_password(stored_hash, input_password):
+        input_hash = hash_master_password(input_password)
+        return input_hash == stored_hash
 
-def encrypt_message(message, key):
-    return Fernet(key).encrypt(message.encode())
+    def get_key(password_provided):
+        password = password_provided.encode()
+        salt = b'\x1a\xdb\xcf\x1d\x80\x91\xcc\x85\x10\x1d\x2b\x2f\x6e\xdc\x0e\x20'
+        kdf = PBKDF2HMAC(
+            algorithm=hashes.SHA256(),
+            length=32,
+            salt=salt,
+            iterations=100000,
+            backend=default_backend()
+            )
+            return base64.urlsafe_b64encode(kdf.derive(password))
 
-def decrypt_message(encrypted_message, key):
-    return Fernet(key).decrypt(encrypted_message).decode()
+    def encrypt_message(message, key):
+        return Fernet(key).encrypt(message.encode())
 
-def main():
-    # Database setup
-    conn = sqlite3.connect('passwords.db')
-    c = conn.cursor()
-    c.execute('''CREATE TABLE IF NOT EXISTS accounts (service text, username text, password text)''')
-    conn.commit()
+    def decrypt_message(encrypted_message, key):
+        return Fernet(key).decrypt(encrypted_message).decode()
 
+    def main():
+        # Database setup
+        conn = sqlite3.connect('passwords.db')
+        c = conn.cursor()
+        c.execute('''CREATE TABLE IF NOT EXISTS accounts (service text, username text, password text)''')
+        conn.commit()
+    
     # Check if a master password is set
     try:
         with open('master_password_hash.txt', 'r') as file:
