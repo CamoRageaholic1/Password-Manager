@@ -1,36 +1,44 @@
-# Password Manager v2.0
+# Password Manager v2.5 - Integrated Edition
 
 ![Python](https://img.shields.io/badge/Python-3.8+-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![Security](https://img.shields.io/badge/Security-Encrypted-red?style=for-the-badge&logo=lock&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
-![Version](https://img.shields.io/badge/Version-2.0-blue?style=for-the-badge)
+![Version](https://img.shields.io/badge/Version-2.5-blue?style=for-the-badge)
 
-**Secure CLI password manager with Fernet encryption, password generation, and comprehensive features.**
+**All-in-one password manager with integrated secure password generator - everything in a single file!**
 
 **Author:** David Osisek (CamoZeroDay)
 
 ---
 
-## 🎉 What's New in v2.0
+## 🎉 What's New in v2.5
 
-### 🔒 Security Fixes
-- ✅ **Fixed critical hardcoded salt vulnerability** - Now uses unique salt per user
-- ✅ **Cryptographically secure password generation** - Uses `secrets` module
-- ✅ **Improved key derivation** - PBKDF2 with 100,000 iterations
-- ✅ **Master password attempts limit** - 3 attempts before lockout
+### ⚡ Integrated Password Generator
+- ✅ **Full generator built-in** - No separate files needed
+- ✅ **Generate during add** - Create passwords when adding entries
+- ✅ **Generate during update** - Create new passwords when updating
+- ✅ **Standalone generation** - Use generator without saving
+- ✅ **Multiple modes** - Standard, memorable, custom
+- ✅ **Single file solution** - Everything in one 800-line file
 
-### ✨ New Features
-- ✅ **Built-in password generator** - Generate secure passwords instantly
-- ✅ **Password strength analyzer** - Visual feedback on password quality
-- ✅ **List all passwords** - View all stored credentials
-- ✅ **Search functionality** - Find passwords by service/username
-- ✅ **Update passwords** - Modify existing entries
-- ✅ **Delete with confirmation** - Safely remove entries
-- ✅ **Backup system** - Manual database backups
-- ✅ **Clipboard support** - Copy passwords instantly (optional)
-- ✅ **Color-coded UI** - Enhanced interface (optional)
-- ✅ **Timestamps** - Track creation/update times
-- ✅ **URL and notes fields** - Store additional info
+### 🚀 Generation Options
+
+**1. Standard Password**
+```
+K@9mPx#L2nQ$8vY&Tz4W
+  ████████ Very Strong
+```
+
+**2. Memorable Passphrase**
+```
+Alpha-Bravo-Charlie-Delta42
+  ███████ Strong
+```
+
+**3. Custom Options**
+- Choose character types
+- Exclude ambiguous characters
+- Set length (12-64)
 
 ---
 
@@ -42,68 +50,71 @@ git clone https://github.com/CamoRageaholic1/Password-Manager.git
 cd Password-Manager
 pip install -r requirements.txt
 
-# Run v2.0
-python password_manager_v2.py
+# Run integrated v2.5
+python password_manager_v2.5.py
 ```
 
 ---
 
-## 📚 Features
-
-### Core Security
-- **Fernet Encryption** (AES 128-bit)
-- **PBKDF2** with 100,000 iterations
-- **SHA-256** master password hashing
-- **Unique salt** per installation
+## ✨ Features
 
 ### Password Management
-1. **Add** - Store new passwords with optional generation
-2. **Get** - Retrieve passwords with search
+1. **Add** - Store passwords with integrated generation
+2. **Get** - Retrieve passwords with copy
 3. **List** - View all stored passwords
-4. **Search** - Find by service name or username
-5. **Update** - Modify existing entries
+4. **Search** - Find by service/username
+5. **Update** - Modify with new generation
 6. **Delete** - Remove with confirmation
-7. **Generate** - Create secure passwords
-8. **Backup** - Manual database backup
+7. **Generate** - Standalone password creation
+8. **Export** - Export to JSON
+9. **Settings** - Configure backups
 
-### Password Strength
-```
-Password: MyP@ssw0rd123
-  Strength: ████░ Good
-  Length: 13 characters
-```
+### Security
+- 🔒 Fernet (AES 128-bit) encryption
+- 🔒 PBKDF2 (100,000 iterations)
+- 🔒 SHA-256 master password hashing
+- 🔒 Unique salt per installation
+- 🔒 Cryptographic password generation
 
 ---
 
 ## 🎯 Usage
 
-### Main Menu
-```
-==================================================
-  Password Manager v2.0
-==================================================
+### Adding a Password with Generation
 
-1. Add Password
-2. Get Password
-3. List All
-4. Search
-5. Update
-6. Delete
-7. Generate Password
-8. Backup
-9. Quit
-```
-
-### Adding a Password
 ```
 Service: github.com
 Username: john@example.com
-Generate password? (y/n): y
+
+Password Options:
+1. Generate Standard Password
+2. Generate Memorable Passphrase
+3. Enter Manually
+
+Choice: 1
 Length (12-64, default 16): 20
+
 Generated: K@9mPx#L2nQ$8vY&Tz4W
-  Strength: █████ Very Strong
-✓ Copied to clipboard
-✓ Added
+  ████████ Very Strong
+✓ Copied to clipboard!
+
+✓ Password for 'github.com' added!
+```
+
+### Standalone Password Generation
+
+```
+Generation Options:
+1. Standard Password
+2. Memorable Passphrase
+3. Custom Options
+
+Choice: 2
+Words (3-8, default 4): 5
+
+Generated: Alpha-Bravo-Charlie-Delta-Echo42
+  ███████ Strong
+✓ Copied!
 ```
 
 ---
@@ -115,15 +126,11 @@ Generated: K@9mPx#L2nQ$8vY&Tz4W
 - cryptography>=41.0.0
 
 ### Optional
-- pyperclip>=1.8.2 (clipboard support)
-- colorama>=0.4.6 (colored output)
+- pyperclip>=1.8.2 (clipboard)
+- colorama>=0.4.6 (colors)
 
 ```bash
-# Install all
 pip install -r requirements.txt
-
-# Or minimal
-pip install cryptography
 ```
 
 ---
@@ -132,54 +139,54 @@ pip install cryptography
 
 ```
 Password-Manager/
-├── password_manager_v2.py    # v2.0 (use this)
+├── password_manager_v2.5.py  # ⭐ USE THIS (integrated)
+├── password_manager_v2.0.py  # v2.0 (separate files)
 ├── Password_Manager.py       # v1.0 (legacy)
 ├── requirements.txt          # Dependencies
 ├── CHANGELOG.md              # Version history
 ├── README.md                 # This file
-├── LICENSE                   # MIT License
-├── passwords.db              # Database (created)
-├── salt.key                  # Encryption salt (created)
-├── master.hash               # Master password (created)
-└── backups/                  # Backup directory
+└── LICENSE                   # MIT License
 ```
+
+---
+
+## 📊 Version Comparison
+
+| Feature | v2.0 | v2.5 |
+|---------|------|------|
+| Password Manager | ✅ | ✅ |
+| Password Generator | ❌ Separate | ✅ Integrated |
+| Generation During Add | ❌ | ✅ |
+| Generation During Update | ❌ | ✅ |
+| Standalone Generation | ❌ | ✅ |
+| Multiple Generation Modes | ❌ | ✅ |
+| Export Functionality | ❌ | ✅ |
+| Single File | ❌ | ✅ |
 
 ---
 
 ## 🔒 Security
 
-### What's Protected
-- ✅ Passwords encrypted with Fernet
-- ✅ Master password never stored (only hash)
-- ✅ Unique salt per installation
-- ✅ 100,000 PBKDF2 iterations
+### Encryption
+- **Algorithm:** Fernet (AES 128-bit CBC)
+- **Key Derivation:** PBKDF2-HMAC-SHA256
+- **Iterations:** 100,000
+- **Salt:** 16 bytes (unique per installation)
 
-### Best Practices
-✅ **DO:**
-- Use strong master password (12+ chars)
-- Backup database regularly
-- Keep salt.key secure
-- Use generated passwords
-
-❌ **DON'T:**
-- Share master password
-- Reuse passwords
-- Store database on shared systems
-- Lose your master password (no recovery!)
+### Password Generation
+- **Random Source:** `secrets` module (cryptographic)
+- **Character Variety:** Guaranteed all types
+- **Shuffling:** SystemRandom (secure)
+- **Ambiguous Exclusion:** Optional (il1Lo0O)
 
 ---
 
-## 🔧 Troubleshooting
+## 🛠️ Troubleshooting
 
 **Import errors:**
 ```bash
 pip install --upgrade cryptography pyperclip colorama
 ```
-
-**Decryption fails:**
-- Verify master password
-- Check salt.key exists
-- Restore from backup
 
 **Clipboard not working:**
 ```bash
@@ -189,53 +196,51 @@ pip install pyperclip
 
 ---
 
-## 📊 v1.0 vs v2.0
-
-| Feature | v1.0 | v2.0 |
-|---------|------|------|
-| Encryption | ✅ | ✅ |
-| Hardcoded Salt | ❌ | ✅ Fixed |
-| Generate Passwords | ❌ | ✅ |
-| Strength Analysis | ❌ | ✅ |
-| List/Search | ❌ | ✅ |
-| Update/Delete | ❌ | ✅ |
-| Backup | ❌ | ✅ |
-| Clipboard | ❌ | ✅ |
-| Colors | ❌ | ✅ |
-
----
-
 ## 🤝 Contributing
 
 Contributions welcome!
 
 **Ideas for v3.0:**
-- Export/import functionality
-- Master password change
-- Auto-backup
-- Password expiration
-- Browser extension
+- Browser extension integration
+- Cloud sync support
+- Biometric authentication
+- Password expiration reminders
+- Import from other managers
 
 ---
 
-## 📝 License
+## 📄 License
 
 MIT License - see [LICENSE](LICENSE)
 
 ---
 
-## ⚠️ Educational Disclaimer
+## 📈 Evolution
 
-Designed for **educational purposes** and personal use. For production, consider:
-- 1Password
-- Bitwarden
-- KeePass
-- LastPass
+**v1.0:** Basic password storage  
+**v2.0:** Added features, fixed security  
+**v2.5:** Integrated generator, single file
+
+---
+
+## ⭐ Why v2.5?
+
+### Single File Benefits
+- ✅ **Easy Distribution** - Share one file
+- ✅ **No Dependencies** - Between own files
+- ✅ **Simple Deployment** - Just run it
+- ✅ **Complete Solution** - Everything included
+
+### Integrated Generator Benefits
+- ✅ **Seamless Workflow** - Generate while adding
+- ✅ **Multiple Modes** - Standard, memorable, custom
+- ✅ **Strength Analysis** - Visual feedback
+- ✅ **No Context Switching** - Stay in manager
 
 ---
 
 **Author:** David Osisek (CamoZeroDay)  
-**Version:** 2.0  
+**Version:** 2.5 - Integrated Edition  
 **License:** MIT
 
-**🔒 Stay secure. Backup your data. Use strong passwords. 🔒**
+**🔒 One file. Complete solution. Maximum security. 🔒**

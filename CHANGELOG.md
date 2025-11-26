@@ -1,5 +1,30 @@
 # Changelog
 
+## [2.5.0] - 2025-11-26
+
+### Added - Integrated Edition
+- ✅ **Full Password Generator Integration** - Complete password generator built into manager
+- ✅ **Multiple Generation Modes** - Standard, memorable passphrase, and custom options
+- ✅ **Generation During Add** - Generate passwords when adding new entries
+- ✅ **Generation During Update** - Generate new passwords when updating entries
+- ✅ **Standalone Generation** - Use generator without saving to database
+- ✅ **Single File Solution** - Everything in one 800-line file
+- ✅ **Export Functionality** - Export passwords to JSON
+- ✅ **Enhanced Settings** - Configurable auto-backup and backup count
+
+### Improvements
+- Enhanced password generation workflow
+- Better menu organization
+- Improved user experience for password creation
+- More generation options during password management
+- Streamlined single-file architecture
+
+### Technical
+- Integrated PasswordGenerator class
+- Unified codebase (no external dependencies between files)
+- All-in-one distribution model
+- 32KB single file
+
 ## [2.0.0] - 2025-11-26
 
 ### Added
