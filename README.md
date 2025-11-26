@@ -1,205 +1,241 @@
-# Password Manager
+# Password Manager v2.0
 
 ![Python](https://img.shields.io/badge/Python-3.8+-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![Security](https://img.shields.io/badge/Security-Encrypted-red?style=for-the-badge&logo=lock&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+![Version](https://img.shields.io/badge/Version-2.0-blue?style=for-the-badge)
 
-Simple command-line password manager with encryption - securely store and retrieve passwords using a master password.
+**Secure CLI password manager with Fernet encryption, password generation, and comprehensive features.**
 
-## 🎯 Purpose
+**Author:** David Osisek (CamoZeroDay)
 
-A lightweight, educational password manager demonstrating encryption best practices. Perfect for learning about cryptography, password security, and building CLI tools in Python.
+---
 
-## ✨ Features
+## 🎉 What's New in v2.0
 
-- ✅ **Master Password Protection** - Single password to access all stored credentials
-- ✅ **Strong Encryption** - Uses Fernet (AES 128-bit) symmetric encryption
-- ✅ **Password Derivation** - PBKDF2 with 100,000 iterations for key generation
-- ✅ **SQLite Storage** - Local encrypted database
-- ✅ **Simple CLI** - Easy-to-use command-line interface
-- ✅ **Hidden Input** - Passwords hidden during entry
+### 🔒 Security Fixes
+- ✅ **Fixed critical hardcoded salt vulnerability** - Now uses unique salt per user
+- ✅ **Cryptographically secure password generation** - Uses `secrets` module
+- ✅ **Improved key derivation** - PBKDF2 with 100,000 iterations
+- ✅ **Master password attempts limit** - 3 attempts before lockout
+
+### ✨ New Features
+- ✅ **Built-in password generator** - Generate secure passwords instantly
+- ✅ **Password strength analyzer** - Visual feedback on password quality
+- ✅ **List all passwords** - View all stored credentials
+- ✅ **Search functionality** - Find passwords by service/username
+- ✅ **Update passwords** - Modify existing entries
+- ✅ **Delete with confirmation** - Safely remove entries
+- ✅ **Backup system** - Manual database backups
+- ✅ **Clipboard support** - Copy passwords instantly (optional)
+- ✅ **Color-coded UI** - Enhanced interface (optional)
+- ✅ **Timestamps** - Track creation/update times
+- ✅ **URL and notes fields** - Store additional info
+
+---
 
 ## 🚀 Quick Start
 
-### Prerequisites
+```bash
+# Clone and install
+git clone https://github.com/CamoRageaholic1/Password-Manager.git
+cd Password-Manager
+pip install -r requirements.txt
 
-- Python 3.8 or higher
-- pip (Python package manager)
+# Run v2.0
+python password_manager_v2.py
+```
 
-### Installation
+---
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/CamoRageaholic1/Password-Manager.git
-   cd Password-Manager
-   ```
+## 📚 Features
 
-2. **Install dependencies**
-   ```bash
-   pip install cryptography
-   ```
+### Core Security
+- **Fernet Encryption** (AES 128-bit)
+- **PBKDF2** with 100,000 iterations
+- **SHA-256** master password hashing
+- **Unique salt** per installation
 
-### First Run
+### Password Management
+1. **Add** - Store new passwords with optional generation
+2. **Get** - Retrieve passwords with search
+3. **List** - View all stored passwords
+4. **Search** - Find by service name or username
+5. **Update** - Modify existing entries
+6. **Delete** - Remove with confirmation
+7. **Generate** - Create secure passwords
+8. **Backup** - Manual database backup
+
+### Password Strength
+```
+Password: MyP@ssw0rd123
+  Strength: ████░ Good
+  Length: 13 characters
+```
+
+---
+
+## 🎯 Usage
+
+### Main Menu
+```
+==================================================
+  Password Manager v2.0
+==================================================
+
+1. Add Password
+2. Get Password
+3. List All
+4. Search
+5. Update
+6. Delete
+7. Generate Password
+8. Backup
+9. Quit
+```
+
+### Adding a Password
+```
+Service: github.com
+Username: john@example.com
+Generate password? (y/n): y
+Length (12-64, default 16): 20
+Generated: K@9mPx#L2nQ$8vY&Tz4W
+  Strength: █████ Very Strong
+✓ Copied to clipboard
+✓ Added
+```
+
+---
+
+## 📦 Requirements
+
+### Required
+- Python 3.8+
+- cryptography>=41.0.0
+
+### Optional
+- pyperclip>=1.8.2 (clipboard support)
+- colorama>=0.4.6 (colored output)
 
 ```bash
-python Password_Manager.py
+# Install all
+pip install -r requirements.txt
+
+# Or minimal
+pip install cryptography
 ```
 
-You'll be prompted to set a master password on first run.
+---
 
-## 📖 Usage Guide
-
-### Main Menu Options
-
-```
-Options: 1. Add a password 2. Get a password 3. Quit
-```
-
-### 1. Add a Password
-
-Store credentials for a service:
-
-```bash
-Enter your choice: 1
-Enter the service name: GitHub
-Enter the username: myusername
-Enter the password: ********
-Password added successfully.
-```
-
-### 2. Retrieve a Password
-
-Get stored credentials:
-
-```bash
-Enter your choice: 2
-Enter the service name: GitHub
-Username: myusername, Password: mypassword123
-```
-
-### 3. Quit
-
-Exit the program safely.
-
-## 🔒 Security Features
-
-### Encryption
-
-- **Algorithm:** Fernet (symmetric encryption using AES in CBC mode with 128-bit key)
-- **Key Derivation:** PBKDF2-HMAC-SHA256 with 100,000 iterations
-- **Password Hashing:** SHA-256 for master password verification
-
-### Security Flow
-
-1. **Master Password Set** → SHA-256 hash stored locally
-2. **User Login** → Master password verified against hash
-3. **Key Generation** → PBKDF2 derives encryption key from master password
-4. **Storage** → Passwords encrypted with Fernet before SQLite storage
-5. **Retrieval** → Passwords decrypted only after master password verification
-
-## ⚠️ Important Security Notes
-
-### Educational Purpose
-
-This is an **educational project** demonstrating encryption concepts. For production use, consider:
-
-- Commercial password managers (1Password, Bitwarden, LastPass)
-- Additional security layers (2FA, hardware keys)
-- Cloud sync and backup capabilities
-- Security audits and penetration testing
-
-### Security Considerations
-
-- 🔒 Master password is **never stored** - only its hash
-- 🔒 Encryption key is **derived** each time from master password
-- 🔒 Passwords are encrypted **before storage**
-- ⚠️ Database file (`passwords.db`) should be kept secure
-- ⚠️ Loss of master password = **permanent data loss**
-- ⚠️ No password recovery mechanism
-
-### Best Practices
-
-1. **Choose a strong master password**
-   - Minimum 12 characters
-   - Mix of uppercase, lowercase, numbers, symbols
-   - Use a passphrase (e.g., "correct-horse-battery-staple")
-
-2. **Backup your database**
-   ```bash
-   cp passwords.db passwords_backup.db
-   ```
-
-3. **Keep the database secure**
-   - Don't commit `passwords.db` to version control
-   - Store on encrypted disk if possible
-   - Use full disk encryption (FileVault on macOS)
-
-4. **Regular updates**
-   - Change master password periodically
-   - Update stored passwords regularly
-   - Keep Python and dependencies updated
-
-## 📁 Project Structure
+## 📁 Files
 
 ```
 Password-Manager/
-├── Password_Manager.py        # Main application
-├── passwords.db               # Encrypted password database (created on first run)
-├── master_password_hash.txt   # Master password hash (created on first run)
-├── README.md                  # This file
-└── LICENSE                    # MIT License
+├── password_manager_v2.py    # v2.0 (use this)
+├── Password_Manager.py       # v1.0 (legacy)
+├── requirements.txt          # Dependencies
+├── CHANGELOG.md              # Version history
+├── README.md                 # This file
+├── LICENSE                   # MIT License
+├── passwords.db              # Database (created)
+├── salt.key                  # Encryption salt (created)
+├── master.hash               # Master password (created)
+└── backups/                  # Backup directory
 ```
 
-## 🔧 Dependencies
+---
 
+## 🔒 Security
+
+### What's Protected
+- ✅ Passwords encrypted with Fernet
+- ✅ Master password never stored (only hash)
+- ✅ Unique salt per installation
+- ✅ 100,000 PBKDF2 iterations
+
+### Best Practices
+✅ **DO:**
+- Use strong master password (12+ chars)
+- Backup database regularly
+- Keep salt.key secure
+- Use generated passwords
+
+❌ **DON'T:**
+- Share master password
+- Reuse passwords
+- Store database on shared systems
+- Lose your master password (no recovery!)
+
+---
+
+## 🔧 Troubleshooting
+
+**Import errors:**
 ```bash
-cryptography>=41.0.0  # Encryption library
+pip install --upgrade cryptography pyperclip colorama
 ```
 
-Install with:
+**Decryption fails:**
+- Verify master password
+- Check salt.key exists
+- Restore from backup
+
+**Clipboard not working:**
 ```bash
-pip install cryptography
+pip install pyperclip
+# Linux: sudo apt-install xclip
 ```
 
-## 🛠️ Troubleshooting
+---
 
-### "ModuleNotFoundError: No module named 'cryptography'"
-Install the cryptography library:
-```bash
-pip install cryptography
-```
+## 📊 v1.0 vs v2.0
 
-### "Incorrect master password"
-Ensure you're entering the correct master password. There's no recovery mechanism.
+| Feature | v1.0 | v2.0 |
+|---------|------|------|
+| Encryption | ✅ | ✅ |
+| Hardcoded Salt | ❌ | ✅ Fixed |
+| Generate Passwords | ❌ | ✅ |
+| Strength Analysis | ❌ | ✅ |
+| List/Search | ❌ | ✅ |
+| Update/Delete | ❌ | ✅ |
+| Backup | ❌ | ✅ |
+| Clipboard | ❌ | ✅ |
+| Colors | ❌ | ✅ |
 
-### Database corruption
-If `passwords.db` becomes corrupted, restore from backup or start fresh (will lose all stored passwords).
+---
 
 ## 🤝 Contributing
 
-Contributions welcome! Ideas for improvements:
+Contributions welcome!
 
-- Add password generator integration
-- Implement password strength checker
-- Add export/import functionality
-- Create GUI version
-- Add password update tracking
-- Implement password sharing (encrypted)
+**Ideas for v3.0:**
+- Export/import functionality
+- Master password change
+- Auto-backup
+- Password expiration
+- Browser extension
 
-## 📄 License
+---
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## 📝 License
 
-## ⚠️ Disclaimer
+MIT License - see [LICENSE](LICENSE)
 
-This software is provided for educational purposes. Use at your own risk. The author is not responsible for any data loss or security breaches. For sensitive data, use professionally audited password managers.
+---
 
-## 📫 Support
+## ⚠️ Educational Disclaimer
 
-- 🐛 **Bug Reports:** Open an issue on GitHub
-- 💡 **Feature Requests:** Open an issue with the "enhancement" label
+Designed for **educational purposes** and personal use. For production, consider:
+- 1Password
+- Bitwarden
+- KeePass
+- LastPass
 
 ---
 
 **Author:** David Osisek (CamoZeroDay)  
-**Made with ❤️ for learning cryptography and security**
+**Version:** 2.0  
+**License:** MIT
+
+**🔒 Stay secure. Backup your data. Use strong passwords. 🔒**
